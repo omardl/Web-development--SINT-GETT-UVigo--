@@ -40,18 +40,18 @@ public class EAML_parser {
 	public static HashMap <String, ArrayList<String>> errors;
 	public static HashMap <String, ArrayList<String>> fatalerrors;
 		
-	
 	public EAML_parser(ServletConfig config) throws IOException, XPathExpressionException {
 		
-    	DocumentBuilder db = null;
-    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    	dbf.setValidating(true);
+    		DocumentBuilder db = null;
+    		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    		dbf.setValidating(true);
 		dbf.setNamespaceAware(true);
 		dbf.setAttribute(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
+		
 		File schema = new File(config.getServletContext().getResource("/p2/eaml.xsd").getPath());
-    	dbf.setAttribute(JAXP_SCHEMA_SOURCE, schema);
+    		dbf.setAttribute(JAXP_SCHEMA_SOURCE, schema);
     	
-    	XML_ErrorHandler ErrorHandler = new XML_ErrorHandler();
+    		XML_ErrorHandler ErrorHandler = new XML_ErrorHandler();
     	   	
 		try {
 		
@@ -72,39 +72,34 @@ public class EAML_parser {
 		XPathFactory xpf = XPathFactory.newInstance();
 		XPath xp = xpf.newXPath();
 		
-		//Listado de documentos que vamos obteniendo y de los que ya han sido parseados
+		//Listado de documentos que se van obteniendo y que ya han sido parseados
 		LinkedList<URL> sin_parsear = new LinkedList<URL> ();		
 		LinkedList<URL> parseados = new LinkedList<URL> (); //PARSEADOS => PUEDEN O NO HABER SIDO AGREGADOS A VALIDOS
 		
-		//Creamos la URL de la direccion inicial
+		//Se crea la URL de la direccion inicial
 		URL direc_inicial = new URL(DIRECC_CONOCIDA + FICH_CONOCIDO);
 		sin_parsear.add(direc_inicial);
 		
 		URLConnection conexion_docu = null;
 		
 		while (sin_parsear.isEmpty() == false) {
-		
-			//boolean exists = true;
 			
 			String degree = null;
-			
 			Document parseando_docu = null;
-						
 			NodeList otros_urls = null;
 			
 			try {
 				
-				//Intentamos parsearlo y capturar los errores que salten
+				//Se intenta parsear capturando los errores que salten
 				conexion_docu = sin_parsear.pop().openConnection();
-
 				parseando_docu = db.parse(conexion_docu.getURL().toString());
 							
-			}  catch (SAXParseException saxparseexc) {
+			} catch (SAXParseException saxparseexc) {
 				
 				//Documento no well formed, se considera fatal error
 				ErrorHandler.fatalerror(saxparseexc);
 				
-			}	catch (SAXException saxexc) {
+			} catch (SAXException saxexc) {
 				
 				//Ha ocurrido algun error al parsear (no pasa el parser, archivo no encontrado, etc)
 				
@@ -112,8 +107,7 @@ public class EAML_parser {
 			
 			if (ErrorHandler.getFatalerrors()) {
 				
-				//Comprobamos si hay fatalerror
-				
+				//Se comprueba si hay fatalerror
 				ArrayList<String> mensajes = new ArrayList<String>();
 				
 				for (int mssg = 0; mssg < ErrorHandler.getMessages().size(); mssg++) {
@@ -128,8 +122,7 @@ public class EAML_parser {
 				
 				if (ErrorHandler.getErrors()) {
 					
-					//Comprobamos si hay error
-					
+					//Se comprueba si hay error
 					ArrayList<String> mensajes = new ArrayList<String>();
 		
 					for (int mssg = 0; mssg < ErrorHandler.getMessages().size(); mssg++) {
@@ -144,7 +137,7 @@ public class EAML_parser {
 					
 					if (ErrorHandler.getWarnings()) {
 						
-						//Comprobamos si hay warning
+						//Se comprueba si hay warning
 						
 						ArrayList<String> mensajes = new ArrayList<String>();
 						
@@ -159,7 +152,7 @@ public class EAML_parser {
 					} else {
 						
 						//Si no se ha capturado ningun error, se agrega al hashmap carrera-documento
-						//Comprobamos si en el nodo EAML hay otros documentos
+						//Se comprueba si en el nodo EAML hay otros documentos
 						
 						otros_urls = (NodeList)xp.evaluate("/Degree/Course/Subject/Student/EAML", parseando_docu, XPathConstants.NODESET);
 						
@@ -172,8 +165,8 @@ public class EAML_parser {
 							for (int i = 0; i < otros_urls.getLength(); i++) {
 								
 								/*Si hay otros documentos:
-								 * comprobamos si son URL relativos o absolutos
-								 * comprobamos si ya parseamos ese documento o lo tenemos pendiente de parsear
+								 * se comprueba si son URL relativos o absolutos
+								 * se comprueba si ese documento ya ha sido parseado o está pendiente de parsear
 								 */
 								
 								
@@ -199,30 +192,18 @@ public class EAML_parser {
 										
 										sin_parsear.add(url_nuevo);
 										
-									}	
-							
-								}						
-					
-							}	
-					
-						}	
-						
-					}
-					
+									}								
+								}											
+							}						
+						}							
+					}	
 				}
-				
 			}
 			
-			//Reseteamos gestor de errores y agregamos el docu a parseados	
-				
-			ErrorHandler.resetErrorHandler();
-			
+			//Reseteamos gestor de errores y agregamos el docu a parseados		
+			ErrorHandler.resetErrorHandler();			
 			parseados.add(conexion_docu.getURL());
 	
-		}    
-				
+		}    			
 	}
-
 }
-
-
