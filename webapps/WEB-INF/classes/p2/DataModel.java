@@ -21,21 +21,22 @@ import org.xml.sax.SAXException;
 
 public class DataModel {
 
-
-	 //DEVUELVE UN ARRAYLIST CON LOS DEGREES
+	 //Devuelve un arraylist con los degrees
 	 public static ArrayList <String> getC2Degrees() throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
 	 	
 	 	ArrayList<String> listado_degrees = new ArrayList<String>();
-        
-        //Obtiene el nombre de los degrees de los documentos validos y los agrega a un arraylist, que devuelve la funcion como resultado
+     
+		 
+    	    	//Obtiene el nombre de los degrees de los documentos validos y los agrega a un arraylist, que devuelve la funcion como resultado
 		for (Entry<String, Document> entry : EAML_parser.map_degrees_docus.entrySet()) {
 			
 			listado_degrees.add(entry.getKey());
 		
 		}
-			
-        //Ordena el listado de carreras por longitud del nombre (de menor a mayor) o, alfabeticamente, si la longitud es la misma
-        Collections.sort(listado_degrees, new Comparator<String>() {
+	
+		 
+        	//Ordena el listado de carreras por longitud del nombre (de menor a mayor) o, alfabeticamente, si la longitud es la misma
+        	Collections.sort(listado_degrees, new Comparator<String>() {
  
 			@Override
 			public int compare(String d1, String d2) {
@@ -52,21 +53,18 @@ public class DataModel {
 						
 					} else {
 						
-						return  d1.compareToIgnoreCase(d2);
+						return  d1.compareToIgnoreCase(d2);	
 						
-					}
-					
+					}	
 				}
-
 			}
-        });
-        		
+        	});
+		 
 		return listado_degrees;
-		
 	}
 	
 	
-	//DEVUELVE ARRAYLIST DE ALUMNOS DE UNA CARRERA 
+	//Devuelve un arraylist con los alumnos de una carrera 
 	public static ArrayList <Student> getC2Students (String degree) throws XPathExpressionException {
 		
 		XPathFactory xpf = XPathFactory.newInstance();
@@ -74,77 +72,68 @@ public class DataModel {
 		
 		ArrayList <Student> alumnos = new ArrayList<Student>();
 		
-		//Obtenemos el documento de ese degree y un nodelist de los alumnos
-	    Document doc = EAML_parser.map_degrees_docus.get(degree);
+		//Se obtiene el documento de ese degree y un nodelist de los alumnos
+	  	Document doc = EAML_parser.map_degrees_docus.get(degree);
 	    
-	    NodeList nodelist_alumnos = (NodeList)xp.evaluate("/Degree/Course/Subject/Student", doc, XPathConstants.NODESET);
+	    	NodeList nodelist_alumnos = (NodeList)xp.evaluate("/Degree/Course/Subject/Student", doc, XPathConstants.NODESET);
 	    
-	    for (int i = 0; i < nodelist_alumnos.getLength(); i++) {
+	    	for (int i = 0; i < nodelist_alumnos.getLength(); i++) {
 	    	
-	    	Student nuevo_alumno = new Student();
+	    		Student nuevo_alumno = new Student();
 	    	
-	    	Element alumno = (Element) nodelist_alumnos.item(i);
+	    		Element alumno = (Element) nodelist_alumnos.item(i);
 	    	
-	    	boolean sigue = false;
+	    		boolean sigue = false;
 	    	
-            //Comprobamos si ya encontramos a este alumno cursando otra asignatura 
-	    	for (int a = 0; a < alumnos.size(); a++) {
+            		//Se comprueba si ya se ha encontrado a este alumno cursando otra asignatura 
+	    		for (int a = 0; a < alumnos.size(); a++) {
 	    		
-	    		if (alumnos.get(a).getNombre().equals(alumno.getElementsByTagName("Name").item(0).getTextContent())) {
+	    			if (alumnos.get(a).getNombre().equals(alumno.getElementsByTagName("Name").item(0).getTextContent())) {
 	    			
-	    			sigue = true;
-	    			
+	    				sigue = true;					
+	    			}
 	    		}
-	    		
-	    	}
+			
+	    		//Si el alumno aun no esta en la lista, se agrega
+	    		if (!sigue) {
 	    	
-	    	//Si el alumno aun no esta en la lista, lo agregamos
-	    	if (!sigue) {
-	    	
-	    		nuevo_alumno.setNombre(alumno.getElementsByTagName("Name").item(0).getTextContent());
+	    			nuevo_alumno.setNombre(alumno.getElementsByTagName("Name").item(0).getTextContent());
 		    	
-	    		//Su ID puede ser DNI o Resident
-		    	if (alumno.getElementsByTagName("Dni").item(0) == null) {
+	    			//Su ID puede ser DNI o Resident
+		    		if (alumno.getElementsByTagName("Dni").item(0) == null) {
 		    		
-		    		nuevo_alumno.setID(alumno.getElementsByTagName("Resident").item(0).getTextContent());
+		    			nuevo_alumno.setID(alumno.getElementsByTagName("Resident").item(0).getTextContent());
 		    		
-		    	} else {
+		    		} else {
 		    		
-		    		nuevo_alumno.setID(alumno.getElementsByTagName("Dni").item(0).getTextContent());
-		    		
-		    	}
-		    	
-		    	//Buscamos entre los nodos hijo del alumno un campo de texto que no sea nulo (su direccion)
-		    	for (int t = 0; t < alumno.getChildNodes().getLength(); t++) {
-		    		
-		    		if ((alumno.getChildNodes().item(t).getNodeType() == Node.TEXT_NODE) && !alumno.getChildNodes().item(t).getTextContent().trim().equals("")) {	    
-		    			
-		    			nuevo_alumno.setDireccion(alumno.getChildNodes().item(t).getTextContent().trim());
+		    			nuevo_alumno.setID(alumno.getElementsByTagName("Dni").item(0).getTextContent());
 		    		
 		    		}
-		    	
-		    	}
-		    	
-		        alumnos.add(nuevo_alumno);	 
-	    		
-	    	}
-	    	   	
-	    }
-	    
-	    Collections.sort(alumnos);
-	    
+		    		
+		    		//Se busca entre los nodos hijo del alumno un campo de texto que no sea nulo (su direccion)
+		    		for (int t = 0; t < alumno.getChildNodes().getLength(); t++) {
+		    		
+		    			if ((alumno.getChildNodes().item(t).getNodeType() == Node.TEXT_NODE) && !alumno.getChildNodes().item(t).getTextContent().trim().equals("")) {	    
+		    			
+		    				nuevo_alumno.setDireccion(alumno.getChildNodes().item(t).getTextContent().trim());
+		    
+		    			}
+		    		}
+		        	alumnos.add(nuevo_alumno);	 
+	    		} 	
+	   	 }
+	   	Collections.sort(alumnos);
 		return alumnos;
-		
 	}
 	
 	
-	//BUSCAMOS LAS ASIGNATURAS DE UNA CARRERA QUE CURSA UN ALUMNO
+	//Se buscan las asignaturas de una carrera que cursa un alumno
 	public static ArrayList <Subject> getC2Subjects (String degree, String student) throws XPathExpressionException {
 		
 		XPathFactory xpf = XPathFactory.newInstance();
 		XPath xp = xpf.newXPath();
 		
-		//Obtenemos el nodo de ese alumno, del documento que corresponde a la carrera
+		//Se obtiene el nodo de ese alumno, del documento que corresponde a la carrera
 	        Document doc = EAML_parser.map_degrees_docus.get(degree);
 	        
 	        NodeList nodelist_asignaturas;
@@ -161,41 +150,37 @@ public class DataModel {
 	    
 	        ArrayList <Subject> asignaturas = new ArrayList<Subject>();
 	    
-	    for (int i = 0; i < nodelist_asignaturas.getLength(); i++) {
+	   	for (int i = 0; i < nodelist_asignaturas.getLength(); i++) {
 	    	
-	    	Subject nueva_asignatura = new Subject();
+	    		Subject nueva_asignatura = new Subject();
 	
-	    	//Obtenemos el nodo padre (Asignaturas) de ese alumno. Obtenemos despues el nombre y el ID. La nota se obtiene dentro del nodo del alumno.
-	    	Element asignatura = (Element) nodelist_asignaturas.item(i).getParentNode();
+	    		//Se obtiene el nodo padre (Asignaturas) de ese alumno. Se obtiene despues el nombre y el ID. La nota se obtiene dentro del nodo del alumno.
+	    		Element asignatura = (Element) nodelist_asignaturas.item(i).getParentNode();
 	    	
-	    	nueva_asignatura.setNombre(asignatura.getElementsByTagName("Name").item(0).getTextContent());
+	    		nueva_asignatura.setNombre(asignatura.getElementsByTagName("Name").item(0).getTextContent());
 	    	
-	    	nueva_asignatura.setID(asignatura.getAttribute("idSub").toString());
+	    		nueva_asignatura.setID(asignatura.getAttribute("idSub").toString());
 	    	
-	    	Element alumno = (Element) nodelist_asignaturas.item(i);
+	    		Element alumno = (Element) nodelist_asignaturas.item(i);
 	    	
-	    	nueva_asignatura.setNota(alumno.getElementsByTagName("Grade").item(0).getTextContent());
+	    		nueva_asignatura.setNota(alumno.getElementsByTagName("Grade").item(0).getTextContent());
 	    	
-	        asignaturas.add(nueva_asignatura);
+	        	asignaturas.add(nueva_asignatura);
 	    
-	    }
+	    	}
 		
-	    Collections.sort(asignaturas);
+	   	Collections.sort(asignaturas);
 	    
 		return asignaturas;
-		
 	}
 	
 	
-	//CLASE SUBJECT
+	//Clase Subject
 	public static class Subject implements Comparable<Subject> {
 		
 		String nombre;
-		
 		String ID;
-		
-		String nota;
-					
+		String nota;		
 
 		public void setNombre(String nombre) {
 			
@@ -253,23 +238,17 @@ public class DataModel {
 					
 					return nombre.compareToIgnoreCase(asig1.getNombre());
 					
-				}
-				
-			}	
-			
-		}
-		
-		
+				}				
+			}				
+		}		
 	}
 	
 
-	//CLASE STUDENT
+	//clase student
 	public static class Student implements Comparable<Student> {
 		
-		String nombre;
-		
-		String ID;
-		
+		String nombre;		
+		String ID;		
 		String direccion;
 		
 		public void setNombre (String nombre) {
@@ -311,7 +290,7 @@ public class DataModel {
 		@Override
 		public int compareTo(Student al1) {
 			
-			//Primero comprobamos si es DNI o Resident (Resident empieza por letra)
+			//Primero se comprueba si es DNI o Resident (Resident empieza por letra)
 			//Se ordenan primero los Resident
 			//Dentro de DNI / Resident, se ordenan alfabeticamente por Nombre
 			
@@ -337,12 +316,8 @@ public class DataModel {
 					
 					return nombre.compareToIgnoreCase(al1.getNombre());
 					
-				}
-				
-			}
-						
-		}
-				
+				}	
+			}				
+		}			
 	}
-
 }
