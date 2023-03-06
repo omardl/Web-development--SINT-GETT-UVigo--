@@ -16,6 +16,7 @@ public class Sint81P2 extends HttpServlet {
 
     public final String PASSWD = "43rl3v53d1";
 	
+	
     public void init (ServletConfig config) {
     	
     	try {
@@ -30,11 +31,12 @@ public class Sint81P2 extends HttpServlet {
     	
     }
 	
+	
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         boolean auto;
 	
-	//Comprobamos si existe el parametro auto y su valor es true, si no, esta en modo browser
+	//Se comprueba si existe el parametro auto y su valor es true, si no, esta en modo browser
 	if ((req.getParameter("auto") != null) && (req.getParameter("auto").equals("true"))) {
 	
 	    auto = true;
@@ -45,7 +47,7 @@ public class Sint81P2 extends HttpServlet {
 	
 	}	
 		
-	//Comprobamos si hay password
+	//Se comprueba si hay password
 	if (req.getParameter("p") == null) {				
 	    
 	    if (auto) {
@@ -60,7 +62,7 @@ public class Sint81P2 extends HttpServlet {
 		
 	} else {
 	
-	    //Comprobamos si la password es erronea
+	    //Se comprueba si la password es erronea
 	    if (!req.getParameter("p").equals(PASSWD)) {
 	    
 	        if (auto) {
@@ -90,7 +92,6 @@ public class Sint81P2 extends HttpServlet {
 					
 		} else {
 		
-		
 		    switch(req.getParameter("pphase")) {
 					
 			case "01": 
@@ -103,8 +104,7 @@ public class Sint81P2 extends HttpServlet {
 			    
 			        FrontEnd.doGetpphase01(req, res);	
 			    
-			    }
-						
+			    }				
  		           break;
 						
 			case "02":
@@ -118,7 +118,6 @@ public class Sint81P2 extends HttpServlet {
 		                FrontEnd.doGetpphase02(req, res);
 		            
 		            }         	
-		       	
 		            break;
 		                
 			case "21":
@@ -142,7 +141,6 @@ public class Sint81P2 extends HttpServlet {
   				 System.out.println("Ha ocurrido un error en la ejecucion del servlet: " + e);
 							
 	 		   }
- 			
  			   break;
 						
 			case "22":
@@ -237,10 +235,10 @@ public class Sint81P2 extends HttpServlet {
 					
 	         	default:					
 			    break;
-						
-			}		
-		}
+		        				
+		    }		
+	        }
 	    }
-	}
-   }	
+        }
+    }	
 }
