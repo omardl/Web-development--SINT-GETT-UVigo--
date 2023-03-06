@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:element name="Degree">
+        <xsd:complexType>
+           
+            <xsd:sequence>
+            
+                <xsd:element name="Name" type="xsd:string" minOccurs="1"> </xsd:element>
+            
+                <xsd:element name="Scope" minOccurs="1"> 
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="humanities"></xsd:enumeration>
+                            <xsd:enumeration value="science"></xsd:enumeration>
+                            <xsd:enumeration value="technology"></xsd:enumeration>
+                        </xsd:restriction>    
+                    </xsd:simpleType>
+                </xsd:element>
+              
+              
+              
+                <xsd:element name="Course" minOccurs="0" maxOccurs="unbounded"> 
+                    
+                   
+                    
+                            
+                    <xsd:complexType>
+                            
+                        <xsd:sequence>
+                        
+                            
+                            <xsd:element name="Subject" minOccurs="1" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                   
+                                    <xsd:sequence>
+                                    
+                                        <xsd:element name="Name" type="xsd:string"></xsd:element>
+                                        
+                                        <xsd:element name="Student" minOccurs="1" maxOccurs="unbounded">
+                                  
+                                            <xsd:complexType mixed="true">
+                                                                                           
+                                                <xsd:sequence>
+                                                                            
+                                                    <xsd:element name="Name" type="xsd:string"></xsd:element>
+                                                
+                                                    <xsd:choice>                                                       
+                                                        <xsd:element name="Dni"> 
+                                                            <xsd:simpleType>
+                                                                <xsd:restriction base="xsd:string">
+                                                                    <xsd:pattern value="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][A-Z]"></xsd:pattern>
+                                                                </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                        </xsd:element>
+          
+                                                        <xsd:element name="Resident"> 
+                                                            <xsd:simpleType>
+                                                                <xsd:restriction base="xsd:string">
+                                                                    <xsd:pattern value="[A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"></xsd:pattern>
+                                                                </xsd:restriction>
+                                                            </xsd:simpleType>
+                                                        </xsd:element>                                                             
+                                                    </xsd:choice>
+                                                    
+                                                    <xsd:element name="Grade">
+                                                        <xsd:simpleType>
+                                                            <xsd:restriction base="xsd:decimal">
+                                                                <xsd:fractionDigits value="2"> </xsd:fractionDigits>
+                                                            </xsd:restriction>
+                                                        </xsd:simpleType>
+                                                    </xsd:element> 
+
+                                                    <xsd:element name="EAML" minOccurs="0" maxOccurs="unbounded" type="xsd:anyURI"></xsd:element>
+  
+                                                </xsd:sequence>
+                                                                              
+                                            </xsd:complexType>   
+                                                                                      
+                                        </xsd:element>                                     
+                                   
+                                    </xsd:sequence>
+                                
+                                    <xsd:attribute name="idSub" type="xsd:ID" use="required"></xsd:attribute>
+                                    
+                                    <xsd:attribute name="type" use="required">
+                                        <xsd:simpleType>
+                                            <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="core"></xsd:enumeration>
+                                                <xsd:enumeration value="specialty"></xsd:enumeration>
+                                                <xsd:enumeration value="optional"></xsd:enumeration>
+                                            </xsd:restriction>
+                                        </xsd:simpleType>
+                                    </xsd:attribute>
+                                    
+                                </xsd:complexType>
+                                
+                            </xsd:element>
+                        </xsd:sequence>  
+                           
+                           <xsd:attribute name="number" use="required">
+                            <xsd:simpleType>
+                                <xsd:restriction base="xsd:integer">
+                                    <xsd:pattern value="[1-4]"></xsd:pattern>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                           </xsd:attribute>
+                        
+                          
+                           
+                    </xsd:complexType>
+                      
+                </xsd:element>
+                               
+            </xsd:sequence>
+            
+            <xsd:attribute name="location" use="optional">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="Orense"></xsd:enumeration>
+                        <xsd:enumeration value="Vigo"></xsd:enumeration>
+                        <xsd:enumeration value="Pontevedra"></xsd:enumeration>
+                    </xsd:restriction>    
+                </xsd:simpleType>
+            </xsd:attribute>
+            
+            
+            
+        </xsd:complexType> 
+        
+        <xsd:key name="keynumber">
+                        <xsd:selector xpath="Course"></xsd:selector>
+                        <xsd:field xpath="@number"></xsd:field>
+        </xsd:key>
+
+                             
+    </xsd:element>
+                            
+
+</xsd:schema>

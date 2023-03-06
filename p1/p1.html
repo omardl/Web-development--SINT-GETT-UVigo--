@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title> SINTonizaTV: Formulario de registro </title>
+        <link href="p1.css" rel="stylesheet"/>
+        <script src="p1.js"> </script>
+    </head>
+    
+    <body>
+    
+        <h1> SINTonizaTV </h1>
+        <h2> ¡Tu mejor web para consultar todo lo que quieras ver en tu TV! </h2>
+        <table>
+            <tr>
+                <td> <img class="imagen" src="imagenes/icono.jpg" alt="Error al cargar icono.jpg"> </td>
+            </tr>
+        </table>
+        <h3> Registrate ahora para disfrutar de todas nuestras ventajas...o consulta nuestra web sin hacerlo, ¡Tu te lo pierdes! </h3>
+
+        <form onsubmit="return valida()" id="formulario">
+
+            <fieldset id="bloque_datos">
+                <legend id="cabecera_datos"> Datos personales </legend>
+                <table>
+                    <tr> 
+                        <td> <p> Nombre: </p> </td>
+                        <td> <p> <input type="text" name="Nombre"> </p> </td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> Apellidos: </p> </td>
+                        <td> <p> <input type="text" name="Apellidos"> </p> </td>
+                        <td> </td>
+                    </tr>
+                   
+                    <tr>
+                        <td> <p> Nacimiento: </p> </td>
+                        <td> <p> <input type="text" name="Fecha"> </p> </td>
+                        <td> <p> <span class="alerta"> El formato de la fecha debe ser dd/mm/aaaa </span> </p> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> Usuario: </p> </td>
+                        <td> <p> <input type="text" name="Usuario"> </p> </td>
+                        <td> <p> <span class="alerta"> Debe tener al menos:<br> Una mayuscula, una minuscula y un numero. </span>  </p> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> Password: </p> </td>
+                        <td> <p> <input type="password" name="Psswd"> </p> </td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> Confirma password: </p> </td>
+                        <td> <p> <input type="password" name="Confirma"> </p> </td>
+                        <td> <p> <span class="alerta"> Las dos passwords deben coincidir </span> </p> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> Correo: </p> </td>
+                        <td> <p> <input type="text" name="Correo"> </p> </td>
+                        <td> <p> <span class="alerta"> Debe ser del tipo ejemplo@server.com </span> </p> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> Telefono: </p> </td>
+                        <td> <p> <input type="text" name="Tlfn">  </p> </td>
+                        <td> <p> <span class="alerta"> Debe contener nueve numeros </span> </p> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> Foto de perfil: </p> </td>
+                        <td> <p>  <input type="file" name="Foto"> </p> </td>
+                        <td> </td>
+                    </tr>     
+                </table>    
+            </fieldset>
+
+
+            <fieldset id="bloque_gustos">
+                <legend id=cabecera_gustos> Gustos personales </legend>                
+                <p class="cabecera"> Cual suele ser tu horario para ver la tele: </p>
+                <table>
+                    <tr>
+                        <td> <p> <input type="radio" name="Horario" value="Antes del mediodia"> Antes del mediodia </p> </td>
+                        <td> <p> <input type="radio" name="Horario" value="Durante la comida"> Durante la comida </p> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> <input type="radio" name="Horario" value="A lo largo de la tarde"> A lo largo de la tarde </p> </td>
+                        <td> <p> <input type="radio" name="Horario" value="Durante la cena"> Durante la cena </p> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> <input type="radio" name="Horario" value="Por la noche"> Por la noche </p> </td>
+                        <td> </td>
+                    </tr>
+                </table>
+                
+                <p class="cabecera"> Cuanto tiempo sueles ver la tele al dia: </p>
+                <table>
+                    <tr> 
+                        <td> <p> <input type="radio" name="Tiempo" value="Menos de una hora"> Menos de una hora </p> </td>
+                        <td> <p> <input type="radio" name="Tiempo" value="Entre 1 y 3 horas"> Entre 1 y 3 horas </p> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> <input type="radio" name="Tiempo" value="Entre 3 y 5 horas"> Entre 3 y 5 horas </p> </td>
+                        <td> <p> <input type="radio" name="Tiempo" value="Mas de 5 horas"> Mas de 5 horas </p> </td>
+                    </tr>
+                </table>
+            
+                <p class="cabecera"> Elige tus programas favoritos: </p> 
+                <table>
+                    <tr>
+                        <td> <p> <input type="checkbox" name="programa[]" value="Informativos"> Informativos </p> </td>
+                        <td> <p> <input type="checkbox" name="programa[]" value="Documentales"> Documentales </p> </td>
+                        <td> <p> <input type="checkbox" name="programa[]" value="Deportes"> Deportes </p> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> <input type="checkbox" name="programa[]" value="Cocina"> Cocina </p> </td>
+                        <td> <p> <input type="checkbox" name="programa[]" value="Peliculas"> Peliculas </p> </td>
+                        <td> <p> <input type="checkbox" name="programa[]" value="Series"> Series </p> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> <input type="checkbox" name="programa[]" value="Infantil"> Infantil </p> </td>
+                        <td> <p> <input type="checkbox" name="programa[]" value="Humor"> Humor </p> </td>
+                        <td> <p> <input type="checkbox" name="programa[]" value="Entretenimiento"> Entretenimiento </p> </td>
+                    </tr> 
+                </table>
+
+                <table>
+                    <tr> 
+                        <td> <input type="button" class="boton_checkbox" name="todos" value="Seleccionar todos" onclick="selecciona_todos()"> </td>
+                        <td> <input type="button" class="boton_checkbox" name="ninguno" value="Eliminar seleccionados" onclick="elimina_todos()"> </td>
+                    </tr>
+                </table>
+                
+                <p class="cabecera"> A la hora de ver pelis/series, elige tus categorias favoritas: </p> 
+                <table>
+                    <tr>
+                        <td> <p> <input type="checkbox" name="categoria[]" value="Accion"> Accion </p> </td>
+                        <td> <p> <input type="checkbox" name="categoria[]" value="Comedia"> Comedia </p> </td>
+                        <td> <p> <input type="checkbox" name="categoria[]" value="Romance"> Romance </p> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> <input type="checkbox" name="categoria[]" value="Suspense"> Suspense </p> </td>
+                        <td> <p> <input type="checkbox" name="categoria[]" value="Terror"> Terror </p> </td>
+                        <td> <p> <input type="checkbox" name="categoria[]" value="Drama"> Drama </p> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> <input type="checkbox" name="categoria[]" value="Fantasia"> Fantasia </p> </td>
+                        <td> <p> <input type="checkbox" name="categoria[]" value="Ciencia ficcion"> Ciencia ficcion </p> </td>
+                        <td> <p> <input type="checkbox" name="categoria[]" value="Animacion"> Animacion </p> </td>
+                    </tr> 
+                </table>
+
+                <table>
+                    <tr> 
+                        <td> <input type="button" class="boton_checkbox" name="todas" value="Seleccionar todas" onclick="selecciona_todas()"> </td>
+                        <td> <input type="button" class="boton_checkbox" name="ninguna" value="Eliminar seleccionadas" onclick="elimina_todas()"> </td>
+                    </tr>
+                </table>
+            
+            </fieldset>
+            
+            
+            <fieldset id="bloque_envio">
+                
+                <legend id="cabecera_envio"> Sobre el envio del formulario: </legend>
+                <table>
+                    <tr> 
+                        <td> <p> <span class="alerta"> Solo podras adjuntar una <ins>foto de perfil</ins> eligiendo el método <ins>POST</ins> y la codificacion <ins>multipart/form-data</ins></span> </p> </td>
+                   </tr>
+                   <tr> 
+                        <td> <p> <span class="alerta"> El metodo <ins>Get</ins> <ins>NO</ins> es compatible con la codificacion <ins>multipart/form-data</ins> </span> </p> </td>
+                   </tr>
+                </table> 
+                <table>
+                    <tr>
+                        <td> <p> Elige el metodo de envio: </p> </td>
+                        <td> </td> <td> </td> 
+                        <td>  
+                            <p> <input type="radio" name="metodo" value="get" checked> Get </p>
+                            <p> <input type="radio" name="metodo" value="post"> Post </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> <p> Elige el tipo de codificacion: </p> </td>
+                        <td> </td> <td> </td> 
+                        <td> 
+                            <p> <input type="radio" name="codificacion" value="application/x-www-form-urlencoded" checked> Application/x-www-form-urlencoded </p>
+                            <p> <input type="radio" name="codificacion" value="multipart/form-data"> Multipart/form-data </p>
+                        </td>
+                    </tr>
+                    <tr> 
+                        <td> <p> Elige el URL del envio: </p> </td>
+                        <td> </td> <td> </td> 
+                        <td> 
+                            <p> <input type="radio" name="envio" value="p1" checked> P1.php </p>
+                            <p> <input type="radio" name="envio" value="phpinfo"> Phpinfo.php </p>
+                        </td>
+                    </tr>
+                </table>
+                
+            </fieldset>
+            
+            <fieldset id="bloque_extra">
+                <input type="hidden" name="navegador">
+                <table>
+                    <tr>
+                        <td> <p> <input type="checkbox" name="novedades"> Deseo recibir novedades de la web en mi correo </p> </td>
+                    </tr>
+                    <tr>
+                        <td> <p> <input type="checkbox" name="terminos"> Acepto los terminos y condiciones de la web </p> </td> 
+                    </tr>
+                    <tr>
+                        <td> <textarea id="area" name="consulta"> Dejanos una consulta e intentaremos ayudarte </textarea> </td> 
+                    </tr>
+                </table> 
+            </fieldset>
+            
+            
+
+            <table>
+                <tr>
+                    <td> <input type="submit" class="boton_final" value="Enviar"> </td>
+                    <td> <input type="reset" class="boton_final" value="Borrar todo"> </td>
+                </tr>
+            </table>
+            
+            
+            
+        </form>
+
+    </body>
+</html>
