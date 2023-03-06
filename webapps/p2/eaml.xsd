@@ -21,16 +21,13 @@
               
               
                 <xsd:element name="Course" minOccurs="0" maxOccurs="unbounded"> 
-                    
-                   
-                    
-                            
+                                         
                     <xsd:complexType>
                             
-                        <xsd:sequence>
-                        
+                        <xsd:sequence>    
                             
                             <xsd:element name="Subject" minOccurs="1" maxOccurs="unbounded">
+                                
                                 <xsd:complexType>
                                    
                                     <xsd:sequence>
@@ -94,20 +91,18 @@
                                     </xsd:attribute>
                                     
                                 </xsd:complexType>
-                                
+                        
                             </xsd:element>
                         </xsd:sequence>  
                            
-                           <xsd:attribute name="number" use="required">
+                        <xsd:attribute name="number" use="required">
                             <xsd:simpleType>
                                 <xsd:restriction base="xsd:integer">
                                     <xsd:pattern value="[1-4]"></xsd:pattern>
                                 </xsd:restriction>
                             </xsd:simpleType>
-                           </xsd:attribute>
-                        
-                          
-                           
+                        </xsd:attribute>
+                                                           
                     </xsd:complexType>
                       
                 </xsd:element>
@@ -123,18 +118,14 @@
                     </xsd:restriction>    
                 </xsd:simpleType>
             </xsd:attribute>
-            
-            
-            
+                     
         </xsd:complexType> 
         
         <xsd:key name="keynumber">
                         <xsd:selector xpath="Course"></xsd:selector>
                         <xsd:field xpath="@number"></xsd:field>
         </xsd:key>
-
                              
     </xsd:element>
                             
-
 </xsd:schema>
