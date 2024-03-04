@@ -1,4 +1,4 @@
-# Practicas de la asignatura Sistemas de Internet (3º curso, obligatoria) del GETT de la Uvigo
+# Practicas de la asignatura Sistemas de Internet (3º) del GETT de la Uvigo
 
 Se realizaron 2 prácticas descritas a continuación, siguiendo unas especificaciones concretas proporciondas por el profesorado de la asignatura y pasando una batería de pruebas final. Dichos servicios se lanzaron mediante un servidor Apache del que disponían los equipos del laboratorio de la asignatura.
 
